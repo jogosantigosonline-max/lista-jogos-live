@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Lista de Jogos da Live — Retro Arcade</title>
+<title>Lista de Jogos & Ofertas da Live — Retro Arcade</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -18,6 +18,7 @@
     --accent-glow: rgba(245, 158, 11, 0.25);
     --border: #1e293b;
     --success: #10b981;
+    --meli: #ffe600;
   }
   * { box-sizing: border-box; }
   body {
@@ -34,7 +35,7 @@
     margin: 0 auto;
   }
   .header {
-    text-align: center; margin-bottom: 24px;
+    text-align: center; margin-bottom: 20px;
   }
   .logo-badge {
     width: 68px; height: 68px; border-radius: 20px;
@@ -50,6 +51,64 @@
   .subtitle {
     color: var(--muted); font-size: 14px; line-height: 1.5;
     margin: 0 auto; max-width: 38ch;
+  }
+
+  /* Mercado Livre Rotator Banner */
+  .meli-banner {
+    background: linear-gradient(135deg, #1e293b, #131b2e);
+    border: 2px solid var(--meli);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 24px;
+    position: relative;
+    box-shadow: 0 8px 20px rgba(255, 230, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: opacity 0.5s ease;
+  }
+  .meli-header-tag {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--meli);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .meli-title {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0;
+    line-height: 1.4;
+  }
+  .meli-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 4px;
+  }
+  .meli-price {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    font-weight: 700;
+    color: #4ade80;
+  }
+  .meli-btn {
+    background: var(--meli);
+    color: #111827;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .meli-btn:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
   }
   
   /* Search Box */
@@ -152,7 +211,20 @@
   <div class="header">
     <div class="logo-badge">🎮</div>
     <h1>Lista de Jogos da Live</h1>
-    <p class="subtitle">Pesquise o seu jogo favorito, copie o comando e cole direto no chat da live!</p>
+    <p class="subtitle">Pesquise o seu jogo favorito, copie o comando e confira as ofertas em destaque!</p>
+  </div>
+
+  <!-- Banhers Rotativos do Mercado Livre (A cada 7 segundos) -->
+  <div class="meli-banner" id="meliBanner">
+    <div class="meli-header-tag">
+      <span>⚡ Oferta em Destaque (Mercado Livre)</span>
+      <span id="meliCounter">1/2</span>
+    </div>
+    <p class="meli-title" id="meliTitle">Carregando oferta...</p>
+    <div class="meli-footer">
+      <span class="meli-price" id="meliPrice">R$ 0,00</span>
+      <a href="#" id="meliLink" target="_blank" class="meli-btn">Ver Oferta 🛒</a>
+    </div>
   </div>
 
   <div class="search-box">
@@ -171,6 +243,45 @@
 </div>
 
 <script>
+// Dados dos Produtos do Mercado Livre que alternam a cada 7 segundos
+const meliOffers = [
+  {
+    title: "Controle Para Xbox 360 Com Fio Joystick Gamepass Steam Tv Pc Android - Crowley",
+    price: "R$ 46,07",
+    link: "https://meli.la/2inqeW2"
+  },
+  {
+    title: "Adaptador Videogame Game Stick M15 2 Controles Game Stick",
+    price: "R$ 219,90",
+    link: "https://meli.la/2kxZ49N"
+  }
+];
+
+let currentOfferIdx = 0;
+
+function updateMeliBanner() {
+  const offer = meliOffers[currentOfferIdx];
+  const banner = document.getElementById('meliBanner');
+  
+  // Efeito suave de transição
+  banner.style.opacity = '0.4';
+  
+  setTimeout(() => {
+    document.getElementById('meliTitle').innerText = offer.title;
+    document.getElementById('meliPrice').innerText = offer.price;
+    document.getElementById('meliLink').href = offer.link;
+    document.getElementById('meliCounter').innerText = `${currentOfferIdx + 1}/${meliOffers.length}`;
+    banner.style.opacity = '1';
+  }, 250);
+
+  currentOfferIdx = (currentOfferIdx + 1) % meliOffers.length;
+}
+
+// Iniciar rotação a cada 7 segundos (7000ms)
+setInterval(updateMeliBanner, 7000);
+updateMeliBanner(); // Chamar logo no início
+
+// Base de dados dos jogos
 const database = [
   {
     category: "Atari",
