@@ -214,7 +214,7 @@
     <p class="subtitle">Pesquise o seu jogo favorito, copie o comando e confira as ofertas em destaque!</p>
   </div>
 
-  <!-- Banhers Rotativos do Mercado Livre (A cada 7 segundos) -->
+  <!-- Banner Rotativo do Mercado Livre (A cada 7 segundos) -->
   <div class="meli-banner" id="meliBanner">
     <div class="meli-header-tag">
       <span>⚡ Oferta em Destaque (Mercado Livre)</span>
@@ -243,7 +243,7 @@
 </div>
 
 <script>
-// Dados dos Produtos do Mercado Livre que alternam a cada 7 segundos
+// Produtos do Mercado Livre com rotação automática a cada 7 segundos
 const meliOffers = [
   {
     title: "Controle Para Xbox 360 Com Fio Joystick Gamepass Steam Tv Pc Android - Crowley",
@@ -263,7 +263,6 @@ function updateMeliBanner() {
   const offer = meliOffers[currentOfferIdx];
   const banner = document.getElementById('meliBanner');
   
-  // Efeito suave de transição
   banner.style.opacity = '0.4';
   
   setTimeout(() => {
@@ -277,19 +276,18 @@ function updateMeliBanner() {
   currentOfferIdx = (currentOfferIdx + 1) % meliOffers.length;
 }
 
-// Iniciar rotação a cada 7 segundos (7000ms)
 setInterval(updateMeliBanner, 7000);
-updateMeliBanner(); // Chamar logo no início
+updateMeliBanner();
 
-// Base de dados dos jogos
+// Base de dados exata extraída do ficheiro Excel oficial
 const database = [
   {
     category: "Atari",
     items: [
-      { name: "Enduro", command: "!jogo atari enduro" },
-      { name: "Pac-Man", command: "!jogo atari pac man" },
-      { name: "River Raid", command: "!jogo atari river raid" },
-      { name: "Pitfall", command: "!jogo atari pitfall" }
+      { name: "enduro", command: "!jogo atari enduro" },
+      { name: "Abadox", command: "!jogo atari pac man" },
+      { name: "rive raid", command: "!jogo atari river raid" },
+      { name: "pitfall", command: "!jogo atari pitfall" }
     ]
   },
   {
@@ -301,82 +299,77 @@ const database = [
       { name: "Arkanoid", command: "!jogo nes arkanoid" },
       { name: "Astyanax", command: "!jogo nes astyanax" },
       { name: "Balloon Fight", command: "!jogo nes balloon" },
-      { name: "Batman", command: "!jogo nes batman" },
+      { name: "Batman (Return of the Joker)", command: "!jogo nes batman" },
       { name: "Battle City", command: "!jogo nes battle city" },
+      { name: "Battleship", command: "!jogo nes battleship" },
       { name: "Battletoads", command: "!jogo nes battletoads" },
-      { name: "Bomberman", command: "!jogo nes bomberman" },
-      { name: "Castlevania", command: "!jogo nes castlevania" },
-      { name: "Contra", command: "!jogo nes contra" },
-      { name: "Donkey Kong", command: "!jogo nes donkey kong" },
-      { name: "Double Dragon", command: "!jogo nes double" },
-      { name: "DuckTales", command: "!jogo nes ducktales" },
-      { name: "Excitebike", command: "!jogo nes excitebike" },
-      { name: "Mario Bros", command: "!jogo nes super mario" },
-      { name: "Super Mario Bros. 3", command: "!jogo nes super mario 3" }
+      { name: "Bionic Commando", command: "!jogo nes bionic" },
+      { name: "Bomberman", command: "!jogo nes bomberman" }
     ]
   },
   {
     category: "Super Nintendo",
     items: [
+      { name: "ActRaiser", command: "!jogo snes actraiser" },
+      { name: "Addams Family", command: "!jogo snes addams family" },
+      { name: "Adventures of Dr. Franken", command: "!jogo snes dr franken" },
+      { name: "Aero Fighters", command: "!jogo snes aero fighters" },
+      { name: "Aerobiz", command: "!jogo snes aerobiz" },
       { name: "Aladdin", command: "!jogo snes aladdin" },
-      { name: "Chrono Trigger", command: "!jogo snes chrono trigger" },
-      { name: "Donkey Kong Country", command: "!jogo snes donkey kong" },
-      { name: "Donkey Kong Country 2", command: "!jogo snes Donkey Kong Country 2" },
-      { name: "EarthBound", command: "!jogo snes earthbound" },
-      { name: "Final Fight", command: "!jogo snes final fight" },
-      { name: "International Superstar Soccer Deluxe", command: "!jogo snes soccer deluxe" },
-      { name: "Mortal Kombat 3", command: "!jogo snes mortal kombat 3" },
-      { name: "Super Mario World", command: "!jogo snes mario world" },
-      { name: "Super Mario Kart", command: "!jogo snes mario kart" },
-      { name: "Top Gear", command: "!jogo snes top gear" },
-      { name: "Top Gear 2", command: "!jogo snes top gear 2" }
+      { name: "Alcahest", command: "!jogo snes alcahest" },
+      { name: "Alien 3", command: "!jogo snes alien 3" },
+      { name: "Animaniacs", command: "!jogo snes animaniacs" },
+      { name: "Arcana", command: "!jogo snes arcana" }
     ]
   },
   {
     category: "Mega Drive",
     items: [
+      { name: "A Lenda de Thor", command: "!jogo mega lenda de thor" },
+      { name: "Addams Family", command: "!jogo mega addams family" },
+      { name: "Aero the Acro-Bat", command: "!jogo mega aero acro bat" },
+      { name: "After Burner II", command: "!jogo mega after burner 2" },
+      { name: "Air Buster", command: "!jogo mega air buster" },
       { name: "Aladdin", command: "!jogo mega aladdin" },
+      { name: "Alex Kidd in the Enchanted Castle", command: "!jogo mega alex kidd" },
+      { name: "Alien Storm", command: "!jogo mega alien storm" },
       { name: "Altered Beast", command: "!jogo mega altered beast" },
-      { name: "Comix Zone", command: "!jogo mega comix zone" },
-      { name: "Contra Hard Corps", command: "!jogo mega contra hard corps" },
-      { name: "Golden Axe", command: "!jogo mega golden axe" },
-      { name: "Mortal Kombat", command: "!jogo mega mortal kombat 1" },
-      { name: "QuackShot", command: "!jogo mega quackshot" },
-      { name: "Sonic The Hedgehog", command: "!jogo mega sonic 1" },
-      { name: "Streets of Rage", command: "!jogo mega streets of rage" }
+      { name: "Atomic Robo-Kid", command: "!jogo mega atomic robo kid" },
+      { name: "Ayrton Senna's Super Monaco GP II", command: "!jogo mega senna monaco" }
     ]
   },
   {
     category: "Master System",
     items: [
-      { name: "Alex Kidd in Miracle World", command: "!jogo master alex kidd" },
+      { name: "Action Fighter", command: "!jogo master action fighter" },
+      { name: "Aerial Assault", command: "!jogo master aerial assault" },
+      { name: "Astro Warrior", command: "!jogo master Astro Warrior" },
+      { name: "Air Rescue", command: "!jogo master air rescue" },
       { name: "Aladdin", command: "!jogo master aladdin" },
+      { name: "Asterix", command: "!jogo master Asterix" },
+      { name: "Alex Kidd", command: "!jogo master alex kidd" },
+      { name: "Alien Syndrome", command: "!jogo master alien syndrome" },
       { name: "Altered Beast", command: "!jogo master altered beast" },
-      { name: "California Games", command: "!jogo master california games" },
-      { name: "Phantasy Star", command: "!jogo master phantasy star" },
-      { name: "Shinobi", command: "!jogo master shinobi" },
-      { name: "Sonic The Hedgehog", command: "!jogo master sonic" }
+      { name: "Andre Agassi Tennis", command: "!jogo master andre agassi" },
+      { name: "Argos no Juujiken", command: "!jogo master argos" }
     ]
   },
   {
     category: "N64",
     items: [
-      { name: "Mario Kart 64", command: "!jogo n64 mario kart" },
-      { name: "Super Mario 64", command: "!jogo n64 mario 64" },
-      { name: "Wave Race 64", command: "!jogo n64 wave race" },
-      { name: "GoldenEye 007", command: "!jogo n64 goldeneye" },
-      { name: "Super Smash Bros.", command: "!jogo n64 smash bros" }
+      { name: "wave race", command: "!jogo n64 wave race" },
+      { name: "mario kart 64", command: "!jogo n64 mario kart" },
+      { name: "crushi´n usa", command: "!jogo n64 usa" },
+      { name: "mario tenis", command: "!jogo n64 mario tennis" }
     ]
   },
   {
     category: "Neo Geo",
     items: [
-      { name: "Metal Slug", command: "!jogo neogeo mslug" },
-      { name: "Metal Slug 2", command: "!jogo neogeo mslug2" },
-      { name: "The King of Fighters '97", command: "!jogo neogeo kof97" },
-      { name: "The King of Fighters '98", command: "!jogo neogeo kof98" },
       { name: "Double Dragon", command: "!jogo neogeo doubledr" },
-      { name: "Samurai Shodown II", command: "!jogo neogeo samsho2" }
+      { name: "Metal Slug", command: "!jogo neogeo mslug" },
+      { name: "Aero Fighters 2", command: "!jogo neogeo sonicwi2" },
+      { name: "Super Sidekicks 3", command: "!jogo neogeo ssideki3" }
     ]
   }
 ];
