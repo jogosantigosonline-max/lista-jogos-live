@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel da Live</title>
+    <title>Lista de Jogos da Live</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,33 +12,42 @@
             margin: 0;
             padding: 20px;
         }
-        /* Estilo do Banner de Ofertas no Topo */
+        /* Banner de Ofertas no Topo */
         #banner-container {
             background: #1e1e1e;
             padding: 15px;
             border-radius: 8px;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             border: 1px solid #333;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
         }
         #banner-texto {
             font-size: 18px;
             font-weight: bold;
             color: #00ffcc;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         #banner-container a {
             color: #ffcc00;
             text-decoration: none;
+            font-weight: bold;
         }
         #banner-container a:hover {
             text-decoration: underline;
         }
-        /* Resto da página (Jogos/Itens) */
+        /* Grid de Jogos/Itens */
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #fff;
+        }
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         .card {
             background: #1e1e1e;
@@ -46,82 +55,88 @@
             border-radius: 8px;
             text-align: center;
             border: 1px solid #333;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            border-color: #00ffcc;
         }
         .card img {
             max-width: 100%;
-            height: 120px;
+            height: 140px;
             object-fit: cover;
             border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .card h3 {
+            margin: 10px 0 5px 0;
+            font-size: 16px;
+        }
+        .card p {
+            color: #aaa;
+            font-size: 14px;
+            margin: 0;
         }
     </style>
 </head>
 <body>
 
-    <!-- Banner de Ofertas -->
+    <!-- Banner de Ofertas / Comerciais a rodar no topo -->
     <div id="banner-container">
         <div id="banner-texto">A carregar ofertas...</div>
         <div id="banner-link"></div>
     </div>
 
     <h1>Lista de Jogos / Itens</h1>
-    <div class="grid-container" id="lista-publica">
-        <!-- Os itens cadastrados aparecem aqui automaticamente -->
+    
+    <!-- Lista de Jogos -->
+    <div class="grid-container" id="lista-jogos">
+        <!-- Os itens abaixo aparecem perfeitamente na tela -->
+        <div class="card">
+            <img src="https://via.placeholder.com/200x140" alt="Jogo Exemplo">
+            <h3>Nome do Jogo 1</h3>
+            <p>Descrição rápida do item.</p>
+        </div>
+        <div class="card">
+            <img src="https://via.placeholder.com/200x140" alt="Jogo Exemplo">
+            <h3>Nome do Jogo 2</h3>
+            <p>Descrição rápida do item.</p>
+        </div>
     </div>
 
     <script>
-        // Carrega as ofertas do LocalStorage
-        function carregarBannerPublico() {
-            const ofertas = JSON.parse(localStorage.getItem('admin_ofertas')) || [
-                { texto: "Confira as melhores ofertas no Mercado Livre!", link: "#" }
-            ];
+        // Lista das suas propagandas/comerciais rodando no topo (podes alterar os textos e links aqui facilmente)
+        const ofertas = [
+            { texto: "🔥 Confira as melhores ofertas no Mercado Livre!", link: "https://mercadolivre.com.br" },
+            { texto: "🎮 Jogo em promoção imperdível nesta semana!", link: "#" },
+            { texto: "🚀 Apoie o canal usando o link de parceiro!", link: "#" }
+            // Podes adicionar mais comerciais aqui se quiseres
+        ];
             
-            let indexAtual = 0;
-            const textoEl = document.getElementById('banner-texto');
-            const linkEl = document.getElementById('banner-link');
+        let indexAtual = 0;
+        const textoEl = document.getElementById('banner-texto');
+        const linkEl = document.getElementById('banner-link');
 
-            function mostrarOferta(i) {
-                if (ofertas.length === 0) return;
-                const oferta = ofertas[i];
-                textoEl.textContent = oferta.texto;
-                if (oferta.link) {
-                    linkEl.innerHTML = `<a href="${oferta.link}" target="_blank">Aceder à Oferta ➔</a>`;
-                } else {
-                    linkEl.innerHTML = '';
-                }
-            }
-
-            mostrarOferta(indexAtual);
-
-            // Rotação automática a cada 5 segundos
-            if (ofertas.length > 1) {
-                setInterval(() => {
-                    indexAtual = (indexAtual + 1) % ofertas.length;
-                    mostrarOferta(indexAtual);
-                }, 5000);
+        function mostrarOferta(i) {
+            if (ofertas.length === 0) return;
+            const oferta = ofertas[i];
+            textoEl.textContent = oferta.texto;
+            if (oferta.link && oferta.link !== "#") {
+                linkEl.innerHTML = `<a href="${oferta.link}" target="_blank">Aceder à Oferta ➔</a>`;
+            } else {
+                linkEl.innerHTML = '';
             }
         }
 
-        // Carrega os itens/jogos do LocalStorage
-        function carregarItensPublicos() {
-            const itens = JSON.parse(localStorage.getItem('admin_itens')) || [];
-            const container = document.getElementById('lista-publica');
-            container.innerHTML = '';
+        mostrarOferta(indexAtual);
 
-            itens.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    ${item.imagem ? `<img src="${item.imagem}" alt="${item.titulo}">` : ''}
-                    <h3>${item.titulo}</h3>
-                    <p>${item.descricao || ''}</p>
-                `;
-                container.appendChild(card);
-            });
+        // Rotação automática a cada 5 segundos das ofertas
+        if (ofertas.length > 1) {
+            setInterval(() => {
+                indexAtual = (indexAtual + 1) % ofertas.length;
+                mostrarOferta(indexAtual);
+            }, 5000);
         }
-
-        // Executa ao carregar a página
-        carregarBannerPublico();
-        carregarItensPublicos();
     </script>
 </body>
 </html>
