@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Lista Completa de Jogos & Ofertas da Live — Retro Arcade</title>
+<title>Lista de Jogos & Painel Admin — Retro Arcade</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -18,6 +18,7 @@
     --accent-glow: rgba(245, 158, 11, 0.25);
     --border: #1e293b;
     --success: #10b981;
+    --danger: #ef4444;
     --meli: #ffe600;
   }
   * { box-sizing: border-box; }
@@ -30,7 +31,7 @@
     display: flex; flex-direction: column; align-items: center;
   }
   .container {
-    width: 100%; max-width: 520px;
+    width: 100%; max-width: 560px;
     padding: 30px 20px 60px;
     margin: 0 auto;
   }
@@ -59,13 +60,16 @@
     border: 2px solid var(--meli);
     border-radius: 16px;
     padding: 16px;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     position: relative;
     box-shadow: 0 8px 20px rgba(255, 230, 0, 0.15);
     display: flex;
     flex-direction: column;
     gap: 10px;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.4s ease;
+  }
+  .meli-banner img.product-img {
+    width: 100%; height: 140px; object-fit: cover; border-radius: 10px; background: #000;
   }
   .meli-header-tag {
     display: flex;
@@ -154,7 +158,7 @@
 
   /* Game List */
   .game-list {
-    display: flex; flex-direction: column; gap: 10px;
+    display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px;
   }
   .game-card {
     background: var(--card); border: 1px solid var(--border);
@@ -192,6 +196,47 @@
     background: var(--success); color: #fff;
   }
 
+  /* Painel Administrador Intuitivo */
+  .admin-panel {
+    background: var(--card);
+    border: 1px dashed var(--accent);
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 40px;
+  }
+  .admin-title {
+    font-size: 18px; font-weight: 700; color: var(--accent);
+    margin-top: 0; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+  }
+  .admin-desc {
+    font-size: 13px; color: var(--muted); margin-bottom: 16px; line-height: 1.4;
+  }
+  .admin-section {
+    margin-bottom: 20px;
+  }
+  .admin-section h3 {
+    font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 8px;
+    border-bottom: 1px solid var(--border); padding-bottom: 4px;
+  }
+  .admin-item-row {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--bg); padding: 8px 12px; border-radius: 8px; margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .admin-item-row span {
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 250px;
+  }
+  .btn-sm {
+    padding: 4px 10px; font-size: 11px; border-radius: 6px; border: none; font-weight: 600; cursor: pointer;
+  }
+  .btn-danger { background: var(--danger); color: #fff; }
+  .btn-success { background: var(--success); color: #fff; }
+  
+  .form-control {
+    width: 100%; padding: 10px; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 8px; color: var(--text); font-size: 13px; margin-bottom: 8px;
+  }
+
   .empty-state {
     text-align: center; padding: 40px 20px; color: var(--muted);
     font-size: 14px; background: var(--card); border-radius: 14px;
@@ -214,12 +259,13 @@
     <p class="subtitle">Pesquise o seu jogo favorito, copie o comando e confira as ofertas em destaque!</p>
   </div>
 
-  <!-- Banner Rotativo do Mercado Livre (A cada 7 segundos) -->
+  <!-- Banner Rotativo do Mercado Livre (A cada 6 segundos) -->
   <div class="meli-banner" id="meliBanner">
     <div class="meli-header-tag">
       <span>⚡ Oferta em Destaque (Mercado Livre)</span>
-      <span id="meliCounter">1/2</span>
+      <span id="meliCounter">1/N</span>
     </div>
+    <img id="meliImg" class="product-img" src="" alt="Produto Mercado Livre" style="display:none;">
     <p class="meli-title" id="meliTitle">Carregando oferta...</p>
     <div class="meli-footer">
       <span class="meli-price" id="meliPrice">R$ 0,00</span>
@@ -236,51 +282,119 @@
   
   <div id="gameListContainer" class="game-list"></div>
 
+  <!-- PAINEL ADMINISTRADOR INTUITIVO -->
+  <div class="admin-panel">
+    <div class="admin-title">⚙️ Painel Administrador Intuitivo</div>
+    <p class="admin-desc">Gerencie diretamente por aqui as ofertas do Mercado Livre (fotos, preços, links) e adicione novos jogos. As alterações ficam guardadas no teu navegador (LocalStorage).</p>
+    
+    <!-- Gerir Produtos Mercado Livre -->
+    <div class="admin-section">
+      <h3>🛒 Gerir Ofertas Mercado Livre</h3>
+      <div id="adminMeliList"></div>
+      
+      <div style="background: var(--bg); padding: 12px; border-radius: 10px; margin-top: 10px;">
+        <strong style="font-size: 13px; display: block; margin-bottom: 6px;">Adicionar Nova Oferta:</strong>
+        <input type="text" id="newMeliTitle" class="form-control" placeholder="Título do Produto">
+        <input type="text" id="newMeliPrice" class="form-control" placeholder="Preço (ex: R$ 49,90)">
+        <input type="text" id="newMeliLink" class="form-control" placeholder="Link de Afiliado (ex: https://meli.la/...)">
+        <input type="text" id="newMeliImg" class="form-control" placeholder="URL da Foto do Produto (Opcional)">
+        <button class="btn-sm btn-success" onclick="addMeliOffer()" style="padding: 8px 14px; font-size: 12px; width: 100%;">Adicionar Oferta 🚀</button>
+      </div>
+    </div>
+
+    <!-- Gerir Jogos -->
+    <div class="admin-section">
+      <h3>🎮 Adicionar Novo Jogo Rápido</h3>
+      <div style="background: var(--bg); padding: 12px; border-radius: 10px;">
+        <select id="newGameCategory" class="form-control">
+          <option value="Atari">Atari</option>
+          <option value="Nintendinho">Nintendinho</option>
+          <option value="Super Nintendo">Super Nintendo</option>
+          <option value="Mega Drive">Mega Drive</option>
+          <option value="Master System">Master System</option>
+          <option value="N64">N64</option>
+          <option value="Neo Geo">Neo Geo</option>
+        </select>
+        <input type="text" id="newGameName" class="form-control" placeholder="Nome do Jogo (ex: Chrono Trigger)">
+        <input type="text" id="newGameCmd" class="form-control" placeholder="Comando no Chat (ex: !jogo snes chrono trigger)">
+        <button class="btn-sm btn-success" onclick="addGame()" style="padding: 8px 14px; font-size: 12px; width: 100%;">Adicionar Jogo 🎯</button>
+      </div>
+    </div>
+  </div>
+
   <footer>
     Desenvolvido para lives de Retrogaming 🚀<br>
-    Divirta-se e aproveite os clássicos!
+    Painel Admin ativo no armazenamento local.
   </footer>
 </div>
 
 <script>
-// Produtos do Mercado Livre com rotação automática a cada 7 segundos
-const meliOffers = [
+// Lista padrão de produtos do Mercado Livre (incluindo todas as tuas descobertas recentes)
+const defaultMeliOffers = [
   {
-    title: "Controle Para Xbox 360 Com Fio Joystick Gamepass Steam Tv Pc Android - Crowley",
-    price: "R$ 46,07",
-    link: "https://meli.la/2inqeW2"
+    title: "Mini Video Game Portátil 400 Em 1 Retrô Infantil Preto",
+    price: "R$ 43,90",
+    link: "https://meli.la/2nsrVHX",
+    img: ""
   },
   {
-    title: "Adaptador Videogame Game Stick M15 2 Controles Game Stick",
+    title: "Consola de jogos S10 com alça de controle remoto",
+    price: "R$ 85,40",
+    link: "https://meli.la/1uCWrDR",
+    img: ""
+  },
+  {
+    title: "Controle Sony Dualsense Sem Fio White Ps5",
+    price: "R$ 391,23",
+    link: "https://meli.la/1GsYs9M",
+    img: ""
+  },
+  {
+    title: "Miniatura Super Nintendo Escala 1:5 Impressão 3d Snes Geek",
+    price: "R$ 95,00",
+    link: "https://meli.la/1DREuXp",
+    img: ""
+  },
+  {
+    title: "Miniatura Mega Drive 3 Escala 1:5 Retro Game Geek Sega",
+    price: "R$ 95,00",
+    link: "https://meli.la/2Bxi9NE",
+    img: ""
+  },
+  {
+    title: "Miniatura Ps4 Playstation 1:5 Colecionável Gamer Retrô Geek",
+    price: "R$ 104,50",
+    link: "https://meli.la/1P4Cvmy",
+    img: ""
+  },
+  {
+    title: "Miniatura Realista Do Maracanã Com A Torcida Do Flamengo",
+    price: "R$ 370,50",
+    link: "https://meli.la/1LJ3FDX",
+    img: ""
+  },
+  {
+    title: "Miniatura Estádio Laranjeira Fluminense Decoração Futebol",
+    price: "R$ 139,32",
+    link: "https://meli.la/2SgCcWo",
+    img: ""
+  },
+  {
+    title: "Controle Para Xbox 360 Com Fio Joystick Gamepass Steam Tv Pc Android",
+    price: "R$ 46,07",
+    link: "https://meli.la/2inqeW2",
+    img: ""
+  },
+  {
+    title: "Adaptador Videogame Game Stick M15 2 Controles",
     price: "R$ 219,90",
-    link: "https://meli.la/2kxZ49N"
+    link: "https://meli.la/2kxZ49N",
+    img: ""
   }
 ];
 
-let currentOfferIdx = 0;
-
-function updateMeliBanner() {
-  const offer = meliOffers[currentOfferIdx];
-  const banner = document.getElementById('meliBanner');
-  
-  banner.style.opacity = '0.4';
-  
-  setTimeout(() => {
-    document.getElementById('meliTitle').innerText = offer.title;
-    document.getElementById('meliPrice').innerText = offer.price;
-    document.getElementById('meliLink').href = offer.link;
-    document.getElementById('meliCounter').innerText = `${currentOfferIdx + 1}/${meliOffers.length}`;
-    banner.style.opacity = '1';
-  }, 250);
-
-  currentOfferIdx = (currentOfferIdx + 1) % meliOffers.length;
-}
-
-setInterval(updateMeliBanner, 7000);
-updateMeliBanner();
-
-// Base de dados completa com todos os jogos do Excel oficial
-const database = [
+// Base de dados completa de jogos
+const defaultDatabase = [
   {
     category: "Atari",
     items: [
@@ -739,6 +853,43 @@ const database = [
   }
 ];
 
+// Carregar dados salvos ou usar padrões
+let meliOffers = JSON.parse(localStorage.getItem('meliOffers')) || defaultMeliOffers;
+let database = JSON.parse(localStorage.getItem('database')) || defaultDatabase;
+
+let currentOfferIdx = 0;
+
+function updateMeliBanner() {
+  if (meliOffers.length === 0) return;
+  const offer = meliOffers[currentOfferIdx];
+  const banner = document.getElementById('meliBanner');
+  
+  banner.style.opacity = '0.3';
+  
+  setTimeout(() => {
+    document.getElementById('meliTitle').innerText = offer.title;
+    document.getElementById('meliPrice').innerText = offer.price;
+    document.getElementById('meliLink').href = offer.link;
+    document.getElementById('meliCounter').innerText = `${currentOfferIdx + 1}/${meliOffers.length}`;
+    
+    const imgEl = document.getElementById('meliImg');
+    if (offer.img && offer.img.trim() !== '') {
+      imgEl.src = offer.img;
+      imgEl.style.display = 'block';
+    } else {
+      imgEl.style.display = 'none';
+    }
+    
+    banner.style.opacity = '1';
+  }, 200);
+
+  currentOfferIdx = (currentOfferIdx + 1) % meliOffers.length;
+}
+
+// Rotação exata a cada 6 segundos
+setInterval(updateMeliBanner, 6000);
+updateMeliBanner();
+
 let activeTab = 0;
 
 function renderTabs() {
@@ -812,8 +963,78 @@ function escapeHtml(str) {
   return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
 }
 
+// Funções do Painel Admin
+function renderAdminPanel() {
+  const adminList = document.getElementById('adminMeliList');
+  adminList.innerHTML = meliOffers.map((offer, idx) => `
+    <div class="admin-item-row">
+      <span>${offer.title} (${offer.price})</span>
+      <button class="btn-sm btn-danger" onclick="removeMeliOffer(${idx})">Excluir</button>
+    </div>
+  `).join('');
+}
+
+function addMeliOffer() {
+  const title = document.getElementById('newMeliTitle').value.trim();
+  const price = document.getElementById('newMeliPrice').value.trim();
+  const link = document.getElementById('newMeliLink').value.trim();
+  const img = document.getElementById('newMeliImg').value.trim();
+
+  if (!title || !price || !link) {
+    alert("Preencha pelo menos o Título, Preço e Link da oferta!");
+    return;
+  }
+
+  meliOffers.push({ title, price, link, img });
+  localStorage.setItem('meliOffers', JSON.stringify(meliOffers));
+  
+  document.getElementById('newMeliTitle').value = '';
+  document.getElementById('newMeliPrice').value = '';
+  document.getElementById('newMeliLink').value = '';
+  document.getElementById('newMeliImg').value = '';
+  
+  renderAdminPanel();
+  updateMeliBanner();
+  alert("Oferta adicionada com sucesso!");
+}
+
+function removeMeliOffer(idx) {
+  if (confirm("Tens a certeza que queres remover esta oferta?")) {
+    meliOffers.splice(idx, 1);
+    localStorage.setItem('meliOffers', JSON.stringify(meliOffers));
+    renderAdminPanel();
+    updateMeliBanner();
+  }
+}
+
+function addGame() {
+  const categoryName = document.getElementById('newGameCategory').value;
+  const name = document.getElementById('newGameName').value.trim();
+  const command = document.getElementById('newGameCmd').value.trim();
+
+  if (!name || !command) {
+    alert("Preencha o nome do jogo e o comando correspondente!");
+    return;
+  }
+
+  const catObj = database.find(c => c.category === categoryName);
+  if (catObj) {
+    catObj.items.push({ name, command });
+    localStorage.setItem('database', JSON.stringify(database));
+    
+    document.getElementById('newGameName').value = '';
+    document.getElementById('newGameCmd').value = '';
+    
+    renderTabs();
+    renderGames(database[activeTab].items);
+    alert("Jogo adicionado com sucesso!");
+  }
+}
+
+// Inicializar aplicação
 renderTabs();
 renderGames(database[0].items);
+renderAdminPanel();
 </script>
 
 </body>
