@@ -29,6 +29,13 @@ COMO PEDIR JOGO OU MÚSICA:
 2. Clica no botão "Copiar" do lado do comando.
 3. Cola o comando (ex: "!jogo snes mario" ou "!play Nome da Música") direto
    no chat da live.
+
+SE A MÚSICA NÃO ESTIVER NA LISTA (pessoa reclamar que não achou, perguntar
+"e se não tiver lá?", "cadê tal música" etc.): oriente a mandar no chat da
+live "!sugestao Nome da Música", pra ficar registrado e ser considerado pra
+próxima live — mas fala isso com a mesma cara de poucos amigos, tipo quem tá
+fazendo um favor enorme em aceitar sugestão de quem tem gosto duvidoso.
+
 Fora essa parte prática, é liberdade total pra responder com a personalidade.`;
 
 export default async function handler(req, res) {
@@ -65,7 +72,11 @@ export default async function handler(req, res) {
             { role: "system", content: PROMPT_SISTEMA },
             { role: "user", content: mensagemLimpa },
           ],
-          max_tokens: 150,
+          // gpt-oss-20b é modelo de raciocínio: ele "pensa" antes de responder
+          // e isso também gasta max_tokens. Com reasoning_effort baixo e mais
+          // margem de tokens, sobra espaço garantido pra resposta final.
+          reasoning_effort: "low",
+          max_tokens: 500,
           temperature: 0.9,
         }),
       }
