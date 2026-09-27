@@ -314,7 +314,7 @@ function rotateMeliBanner() {
 setInterval(rotateMeliBanner, 6000);
 rotateMeliBanner();
 
-// Base de dados completa
+// Base de dados completa com todos os jogos
 const database = [
   {
     category: "Atari",
@@ -340,26 +340,124 @@ const database = [
       { name: "Battletoads", command: "!jogo nes battletoads" },
       { name: "Bionic Commando", command: "!jogo nes bionic" },
       { name: "Bomberman", command: "!jogo nes bomberman" },
+      { name: "Bubble Bobble Part 2", command: "!jogo nes bubble bobble" },
+      { name: "Bucky O'Hare", command: "!jogo nes bucky" },
+      { name: "Captain America and the Avengers", command: "!jogo nes captain america" },
+      { name: "Captain Planet", command: "!jogo nes captain planet" },
+      { name: "Castlevania", command: "!jogo nes castlevania" },
+      { name: "Circus Charlie", command: "!jogo nes circus" },
+      { name: "Clu Clu Land", command: "!jogo nes clu clu" },
+      { name: "Commando", command: "!jogo nes commando" },
       { name: "Contra", command: "!jogo nes contra" },
+      { name: "Crisis Force", command: "!jogo nes crisis" },
+      { name: "Dig Dug", command: "!jogo nes dig dug" },
       { name: "Donkey Kong", command: "!jogo nes donkey kong" },
       { name: "Double Dragon", command: "!jogo nes double" },
       { name: "DuckTales", command: "!jogo nes ducktales" },
-      { name: "Super Mario Bros.", command: "!jogo nes super mario" },
+      { name: "Eliminator Boat Duel", command: "!jogo nes eliminator" },
+      { name: "Excitebike", command: "!jogo nes excitebike" },
+      { name: "Felix the Cat", command: "!jogo nes felix" },
+      { name: "Flintstones", command: "!jogo nes flintstones" },
+      { name: "Frankenstein", command: "!jogo nes frankenstein" },
+      { name: "Fuzzical Fighter", command: "!jogo nes fuzzical" },
+      { name: "Goal!", command: "!jogo nes goal" },
+      { name: "Galaga", command: "!jogo nes galaga" },
+      { name: "Galaxian", command: "!jogo nes galaxian" },
+      { name: "Gradius", command: "!jogo nes gradius" },
+      { name: "Gun.Smoke", command: "!jogo nes gun smoke" },
+      { name: "Hudson Hawk", command: "!jogo nes hudson hawk" },
+      { name: "Hudson's Adventure Island", command: "!jogo nes adventure island" },
+      { name: "Ice Climber", command: "!jogo nes ice climber" },
+      { name: "Jackie Chan's Action Kung Fu", command: "!jogo nes jackie chan" },
+      { name: "Mario Runner 2", command: "!jogo nes mario runner" },
+      { name: "Micro Mages", command: "!jogo nes micro mages" },
+      { name: "Mike Tyson's Punch-Out!!", command: "!jogo nes punch-out" },
+      { name: "Monster in My Pocket", command: "!jogo nes monster" },
+      { name: "Ms. Pac-Man", command: "!jogo nes ms. pac-man" },
+      { name: "Nightshade", command: "!jogo nes nightshade" },
+      { name: "P.O.W.", command: "!jogo nes pow" },
+      { name: "Pac-Man", command: "!jogo nes pac-man" },
+      { name: "Pipe Dream", command: "!jogo nes pipe dream" },
+      { name: "Power Blazer", command: "!jogo nes power blazer" },
+      { name: "Road Fighter", command: "!jogo nes road fighter" },
+      { name: "RoboCop", command: "!jogo nes robocop" },
+      { name: "Rockin' Kats", command: "!jogo nes rockin" },
+      { name: "Rollergames", command: "!jogo nes rollergames" },
+      { name: "Roto Runner", command: "!jogo nes roto runner" },
+      { name: "Rygar", command: "!jogo nes rygar" },
+      { name: "Silver Surfer", command: "!jogo nes silver surfer" },
+      { name: "Soccer", command: "!jogo nes soccer" },
+      { name: "Star Wars", command: "!jogo nes star wars" },
+      { name: "Street Fighter 2010", command: "!jogo nes street fighter" },
+      { name: "Super Mario Bros. 2", command: "!jogo nes super mario 2" },
       { name: "Super Mario Bros. 3", command: "!jogo nes super mario 3" },
-      { name: "Tetris", command: "!jogo nes tetris" }
+      { name: "Super Mario Kart Raider", command: "!jogo nes kart raider" },
+      { name: "Super Mario", command: "!jogo nes super mario" },
+      { name: "Super Pitfall", command: "!jogo nes super pitfall" },
+      { name: "Teenage Mutant Ninja Turtles", command: "!jogo nes Teenage Mutant Ninja Turtles" },
+      { name: "Teenage Mutant Ninja Turtles II", command: "!jogo nes Teenage Mutant Ninja Turtles 2" },
+      { name: "Teenage Mutant Ninja Turtles III", command: "!jogo nes Teenage Mutant Ninja Turtles 3" },
+      { name: "Tennis", command: "!jogo nes tennis" },
+      { name: "Terminator 2", command: "!jogo nes terminator 2" },
+      { name: "Tetris", command: "!jogo nes tetris" },
+      { name: "Tiny Toon Adventures", command: "!jogo nes tiny toon" },
+      { name: "Volleyball", command: "!jogo nes volleyball" },
+      { name: "Wolverine", command: "!jogo nes wolverine" },
+      { name: "Yo! Noid", command: "!jogo nes yo noid" }
     ]
   },
   {
     category: "Super Nintendo",
     items: [
+      { name: "ActRaiser", command: "!jogo snes actraiser" },
+      { name: "Addams Family", command: "!jogo snes addams family" },
+      { name: "Adventures of Dr. Franken", command: "!jogo snes dr franken" },
+      { name: "Aero Fighters", command: "!jogo snes aero fighters" },
+      { name: "Aerobiz", command: "!jogo snes aerobiz" },
       { name: "Aladdin", command: "!jogo snes aladdin" },
+      { name: "Alcahest", command: "!jogo snes alcahest" },
+      { name: "Alien 3", command: "!jogo snes alien 3" },
+      { name: "Animaniacs", command: "!jogo snes animaniacs" },
+      { name: "Arcana", command: "!jogo snes arcana" },
+      { name: "Arkanoid", command: "!jogo snes arkanoid" },
+      { name: "Battle Cars", command: "!jogo snes battle cars" },
+      { name: "Battletoads & Double Dragon", command: "!jogo snes battletoads double dragon" },
+      { name: "Biker Mice from Mars", command: "!jogo snes biker mice" },
+      { name: "BioMetal", command: "!jogo snes biometal" },
+      { name: "Bobby's World", command: "!jogo snes bobby world" },
+      { name: "Bonkers", command: "!jogo snes bonkers" },
+      { name: "Captain America and the Avengers", command: "!jogo snes captain america" },
+      { name: "Captain Commando", command: "!jogo snes captain commando" },
+      { name: "Captain Tsubasa V", command: "!jogo snes captain tsubasa" },
+      { name: "Castlevania - Dracula X", command: "!jogo snes castlevania dracula" },
+      { name: "Choplifter III", command: "!jogo snes choplifter" },
       { name: "Chrono Trigger", command: "!jogo snes chrono trigger" },
+      { name: "Civilization", command: "!jogo snes civilization" },
+      { name: "Combatribes", command: "!jogo snes combatribes" },
+      { name: "Cool Spot", command: "!jogo snes cool spot" },
+      { name: "Cutthroat Island", command: "!jogo snes cutthroat" },
+      { name: "Cybernator", command: "!jogo snes cybernator" },
+      { name: "Daffy Duck - The Marvin Missions", command: "!jogo snes daffy duck" },
+      { name: "Dark Half", command: "!jogo snes dark half" },
+      { name: "Demolition Man", command: "!jogo snes demolition man" },
+      { name: "Demon's Crest", command: "!jogo snes demon crest" },
+      { name: "Disney's Pinocchio", command: "!jogo snes pinocchio" },
       { name: "Donkey Kong Country", command: "!jogo snes donkey kong" },
-      { name: "Donkey Kong Country 2", command: "!jogo snes donkey kong 2" },
+      { name: "Donkey Kong Country 2", command: "!jogo snes Donkey Kong Country 2" },
       { name: "Donkey Kong Country 3", command: "!jogo snes donkey kong 3" },
       { name: "EarthBound", command: "!jogo snes earthbound" },
+      { name: "Earthworm Jim 2", command: "!jogo snes earthworm jim 2" },
       { name: "Final Fight", command: "!jogo snes final fight" },
+      { name: "Final Fight 2", command: "!jogo snes final fight 2" },
+      { name: "Final Fight 3", command: "!jogo snes final fight 3" },
+      { name: "Fire Striker", command: "!jogo snes fire striker" },
+      { name: "Flashback", command: "!jogo snes flashback" },
+      { name: "Futebol Brasileiro 96", command: "!jogo snes futebol brasileiro" },
+      { name: "Goof Troop", command: "!jogo snes goof troop" },
+      { name: "Gradius III", command: "!jogo snes gradius" },
       { name: "International Super Star Soccer Deluxe", command: "!jogo snes soccer deluxe" },
+      { name: "Joe & Mac 2", command: "!jogo snes joe mac 2" },
+      { name: "Lion King (Rei Leão)", command: "!jogo snes Lion King" },
       { name: "Mortal Kombat 3", command: "!jogo snes mortal kombat 3" },
       { name: "Rock n' Roll Racing", command: "!jogo snes rock n roll" },
       { name: "Street Fighter II Turbo", command: "!jogo snes street fighter" },
@@ -375,6 +473,8 @@ const database = [
   {
     category: "Mega Drive",
     items: [
+      { name: "A Lenda de Thor", command: "!jogo mega lenda de thor" },
+      { name: "Addams Family", command: "!jogo mega addams family" },
       { name: "Aladdin", command: "!jogo mega aladdin" },
       { name: "Castlevania - Bloodlines", command: "!jogo mega castlevania bloodlines" },
       { name: "Comix Zone", command: "!jogo mega comix zone" },
@@ -415,7 +515,6 @@ function renderGames() {
   let itemsToDisplay = [];
 
   if (searchVal !== '') {
-    // Busca global em todas as categorias
     database.forEach(cat => {
       cat.items.forEach(item => {
         if (item.name.toLowerCase().includes(searchVal) || item.command.toLowerCase().includes(searchVal)) {
@@ -424,7 +523,6 @@ function renderGames() {
       });
     });
   } else {
-    // Exibe apenas a categoria ativa
     const currentCat = database.find(c => c.category === activeCategory);
     if (currentCat) {
       itemsToDisplay = currentCat.items.map(item => ({ ...item, catName: currentCat.category }));
@@ -479,7 +577,6 @@ async function copyCommand(btn, command) {
   }, 1500);
 }
 
-// Inicialização
 renderTabs();
 renderGames();
 </script>
